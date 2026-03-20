@@ -1,55 +1,62 @@
-
+# 修复后的 keyboard.toml（直连模式 + 双层切换）
 [keyboard]
-name = "whn Keyboard" # 键盘名称
-product_name = "whn Keyboard" # 键盘显示名称
-vendor_id = 0x4c4b
-product_id = 0x4643
-manufacturer = "wang"
-serial_number = "vial:f64c2b3c:000001"
-chip = "nrf52840"
-usb_enable = true
+name = "whn Keyboard"                # 键盘名称
+product_name = "whn Keyboard"        # 键盘显示名称
+vendor_id = 0x4c4b                   # 厂商ID
+product_id = 0x4643                  # 产品ID
+manufacturer = "wang"                # 制造商
+serial_number = "vial:f64c2b3c:000001" # Vial序列号
+chip = "nrf52840"                    # 芯片型号
+usb_enable = true                    # 启用USB
+
+# 直连模式配置（核心：取消matrix，只保留direct_pins）
 [matrix]
-matrix_type = "direct_pin"
+matrix_type = "direct_pin"           # 启用直连模式
+direct_pin_low_active = true         # 低电平触发（按键接GND）
 
+# 直连引脚列表：3行7列，空位置用 "_" 占位，每行末尾加逗号
 direct_pins = [
-     ["P0_29", "P0_02", "P1_15","_", "_", "P0_22","P0_24"] 
-     ["_", "P1_13","_", "P1_06","P1_04", "P0_11","_",] 
-     ["P0_09", "P0_10", "P1_11","P1_07", "P1_02", "P1_01","P1_00"]   
+    ["P0_29", "P0_02", "P1_15", "_", "_", "P0_22", "P0_24"],
+    ["_", "P1_13", "_", "P1_06", "P1_04", "P0_11", "_"],
+    ["P0_09", "P0_10", "P1_11", "P1_07", "P1_02", "P1_01", "P1_00"]
+]
 
-direct_pin_low_active = true
-
+# 布局配置：匹配direct_pins的行列数
+[layout]
 rows = 3
 cols = 7
-layers = 2
-matrix_map = """
-(0,0) (0,1) (0,2)     _  _      (0,7)  (1,7)
-    _  (1,2)        _   (1,4) (1,5) (1,6) _
-(2,0) (2,1) (2,2) (2,3) (2,4) (2,5) (2,6)
+layers = 2                           # 两层（PLAYER1/PLAYER2）
+
+# 层0：PLAYER1（默认层）
+[[layer]]
+name = "PLAYER1"
+# 键位数量严格匹配direct_pins（3行×7列=21个），空位置用No，层切换用TG(1)
+keys = """
+F1   F3   F7   No   No   TG(1)  TG(0)
+No   W    No   I    O    P      No
+A    S    D    H    J    K      L
 """
 
+# 层1：PLAYER2（切换层）
 [[layer]]
-name = "PLAYER1" #层的可选名称
+name = "PLAYER2"
 keys = """
-F1   F3   F7           TG(0)  TG(1)
-      w                 i    o   p   
- a    s  d           h   j   k  l
+F2   F4   F7   No   No   TG(1)  TG(0)
+No   Up   No   Z    X    C      No
+Left Down Right T    Y    U      I
+"""
 
-[[layer]]
-name = "PLAYER2" #层的可选名称
-keys = """  
-F2   F4   F7                  TG(0)  TG(1)
-      Up                          z    x   c   
-Left    Down  Right           t   y   u  i
-
-
+# BLE蓝牙配置（格式修正）
 [ble]
+enabled = true                       # 启用蓝牙
+ble_profiles_num = 3                 # 蓝牙配置文件数量
+ble_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7] # 蓝牙MAC地址
 
-enabled = true
+# Host配置（Vial启用，解锁键：行0列0 + 行0列1）
+[host]
+vial_enabled = true                  # 启用Vial
+unlock_keys = [[0, 0], [0, 1]]       # 解锁组合键：F1+F3
 
-ble_profiles_num = 3
-ble_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7]
-
-
-[dependency]
-
-vial_enabled = true
+# 依赖/内部配置
+[rmk]
+debounce_time = 20                   # 消抖时间（ms）
