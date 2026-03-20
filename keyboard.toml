@@ -31,6 +31,7 @@ col_pins = ["P0_09", "P0_10", "P1_11", "P1_06", "P1_04", "P0_11", "P1_00"]
 [layout]
 rows = 3
 cols = 7
+layers = 1
 # Define your default keymap.
 # Keycodes are typically defined as a 2D array matching your matrix dimensions.
 # Use standard HID keycodes or RMK's special keycodes.
