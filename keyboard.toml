@@ -2,8 +2,8 @@
 [keyboard]
 name = "whn_ff Keyboard"
 product_name = "whn_ff Keyboard"
-vendor_id = 0xABCD
-product_id = 0x1234
+vendor_id = 0x4c4b
+product_id = 0x4643
 manufacturer = "whn54366"
 serial_number = "vial:f64c2b3c:000001"
 chip = "nrf52840"
