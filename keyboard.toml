@@ -8,15 +8,18 @@ serial_number = "vial:f64c2b3c:000001"
 chip = "nrf52840"
 usb_enable = true
 
+# 强制直连模式（核心：空位置填无效但合法的引脚名 P9_99）
 [matrix]
 matrix_type = "direct_pin"
 direct_pin_low_active = true
+# 关键：空位置不用 _/none/""，用 P9_99（nRF52840 无此引脚，仅占位）
 direct_pins = [
-    ["P0_29", "P0_02", "P1_15", "none", "none", "P0_22", "P0_24"],
-    ["none", "P1_13", "none", "P1_06", "P1_04", "P0_11", "none"],
+    ["P0_29", "P0_02", "P1_15", "P9_99", "P9_99", "P0_22", "P0_24"],
+    ["P9_99", "P1_13", "P9_99", "P1_06", "P1_04", "P0_11", "P9_99"],
     ["P0_09", "P0_10", "P1_11", "P1_07", "P1_02", "P1_01", "P1_00"]
 ]
 
+# 布局/键位完全不变（和你硬件匹配）
 [layout]
 rows = 3
 cols = 7
@@ -27,7 +30,6 @@ matrix_map = """
 (2,0) (2,1) (2,2) (2,3) (2,4) (2,5) (2,6)
 """
 
-# 层0：PLAYER1（多行写法，3行7列，直观匹配矩阵）
 [[layer]]
 name = "PLAYER1"
 keys = """
@@ -36,7 +38,6 @@ No   W    No   I    O    P      No
 A    S    D    H    J    K      L
 """
 
-# 层1：PLAYER2（多行写法，和层0行列一一对应）
 [[layer]]
 name = "PLAYER2"
 keys = """
