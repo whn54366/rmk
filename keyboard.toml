@@ -78,7 +78,7 @@ adc_divider_total = 2806
 default_tx_power = 0 # 默认值为 0，您可以根据需要调整
 
 # 是否启用 2M PHY，默认为 true。
-use_2m_phy = true
+ble_use_2m_phy = true
 
 # [已弃用] 电池充电状态引脚，`low-active` 表示当 `charge_state.pin` 为低电平时电池正在充电。
 # 如果您需要充电显示，请取消注释并指定正确的引脚。例如：
