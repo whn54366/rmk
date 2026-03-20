@@ -4,8 +4,8 @@
 [keyboard]
 name = "whn_ff Keyboard"       # Keyboard name
 product_name = "whn_ff Keyboard" # Display name of this keyboard
-vendor_id = 0xABCD
-product_id = 0x1234
+vendor_id = 0x4c4b
+product_id = 0x4643
 manufacturer = "whn54366"
 serial_number = "vial:f64c2b3c:000001"
 # The chip or existing board used in keyboard
