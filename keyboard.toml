@@ -1,43 +1,46 @@
-# 最终可编译版 keyboard.toml（直连模式 + 双层切换 + 兼容RMK v0.6.0）
+# 最终可编译版 keyboard.toml（补全matrix_map + 兼容双层键位）
 [keyboard]
-name = "whn Keyboard"                # 键盘名称
-product_name = "whn Keyboard"        # 键盘显示名称
-vendor_id = 0x4c4b                   # 厂商ID
-product_id = 0x4643                  # 产品ID
-manufacturer = "wang"                # 制造商
-serial_number = "vial:f64c2b3c:000001" # Vial序列号
-chip = "nrf52840"                    # 芯片型号
-usb_enable = true                    # 启用USB
+name = "whn Keyboard"
+product_name = "whn Keyboard"
+vendor_id = 0x4c4b
+product_id = 0x4643
+manufacturer = "wang"
+serial_number = "vial:f64c2b3c:000001"
+chip = "nrf52840"
+usb_enable = true
 
-# 直连模式核心配置（RMK v0.6.0 标准）
+# 直连模式核心配置
 [matrix]
-matrix_type = "direct_pin"           # 启用直连模式
-direct_pin_low_active = true         # 低电平触发（按键接GND）
-
-# 直连引脚列表：3行7列，空位置用 "_" 占位，每行末尾加逗号（TOML数组规范）
+matrix_type = "direct_pin"
+direct_pin_low_active = true
 direct_pins = [
     ["P0_29", "P0_02", "P1_15", "_", "_", "P0_22", "P0_24"],
     ["_", "P1_13", "_", "P1_06", "P1_04", "P0_11", "_"],
     ["P0_09", "P0_10", "P1_11", "P1_07", "P1_02", "P1_01", "P1_00"]
 ]
 
-# 布局配置：匹配direct_pins的行列数
+# 布局配置：补全matrix_map（直连模式也需要！）
 [layout]
 rows = 3
 cols = 7
-layers = 2                           # 两层（PLAYER1/PLAYER2）
+layers = 2
+# 补全matrix_map：按3行7列填写坐标，空位置用_（和direct_pins一一对应）
+matrix_map = """
+(0,0) (0,1) (0,2) _     _     (0,5) (0,6)
+_     (1,1) _     (1,3) (1,4) (1,5) _
+(2,0) (2,1) (2,2) (2,3) (2,4) (2,5) (2,6)
+"""
 
-# 层0：PLAYER1（默认层）
+# 层0：PLAYER1
 [[layer]]
 name = "PLAYER1"
-# 键位数量严格匹配direct_pins（3行×7列=21个），空位置用No，层切换用TG(1)
 keys = """
 F1   F3   F7   No   No   TG(1)  TG(0)
 No   W    No   I    O    P      No
 A    S    D    H    J    K      L
 """
 
-# 层1：PLAYER2（切换层）
+# 层1：PLAYER2
 [[layer]]
 name = "PLAYER2"
 keys = """
@@ -46,29 +49,29 @@ No   Up   No   Z    X    C      No
 Left Down Right T    Y    U      I
 """
 
-# BLE蓝牙配置（RMK v0.6.0 官方支持的字段）
+# BLE配置（RMK v0.6.0 标准）
 [ble]
-enabled = true                       # 启用蓝牙（核心字段）
-battery_adc_pin = "vddh"             # 电池电量检测引脚（nRF52840必填）
-adc_divider_measured = 2000          # ADC分压器参数（默认值）
-adc_divider_total = 2806             # ADC分压器参数（默认值）
-default_tx_power = 0                 # 蓝牙发射功率（0dBm）
-ble_use_2m_phy = true                # 启用2M PHY（提升蓝牙速度）
+enabled = true
+battery_adc_pin = "vddh"
+adc_divider_measured = 2000
+adc_divider_total = 2806
+default_tx_power = 0
+ble_use_2m_phy = true
 
-# Host配置（Vial启用，解锁键：行0列0 + 行0列1）
+# Host配置（Vial）
 [host]
-vial_enabled = true                  # 启用Vial（RMK v0.6.0 标准）
-unlock_keys = [[0, 0], [0, 1]]       # 解锁组合键：F1+F3
+vial_enabled = true
+unlock_keys = [[0, 0], [0, 1]]
 
-# RMK内部配置（必选基础项）
+# RMK内部配置
 [rmk]
-debounce_time = 20                   # 按键消抖时间（20ms，默认值）
-event_channel_size = 16              # 事件通道大小（默认值）
-controller_channel_size = 16         # 控制器通道大小（默认值）
-report_channel_size = 16             # 报告通道大小（默认值）
+debounce_time = 20
+event_channel_size = 16
+controller_channel_size = 16
+report_channel_size = 16
 
-# 芯片专属配置（nRF52840）
+# 芯片配置
 [chip.nrf52840]
-dcdc_reg0 = true                     # 启用DCDC调节器0
-dcdc_reg1 = true                     # 启用DCDC调节器1
-dcdc_reg0_voltage = "3V3"            # 调节器0电压（3.3V）
+dcdc_reg0 = true
+dcdc_reg1 = true
+dcdc_reg0_voltage = "3V3"
