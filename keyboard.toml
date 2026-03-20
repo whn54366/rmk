@@ -29,6 +29,8 @@ col_pins = ["P0_09", "P0_10", "P1_11", "P1_06", "P1_04", "P0_11", "P1_00"]
 
 # Layout configuration (example, you'll need to customize this)
 [layout]
+rows = 3
+cols = 7
 # Define your default keymap.
 # Keycodes are typically defined as a 2D array matching your matrix dimensions.
 # Use standard HID keycodes or RMK's special keycodes.
@@ -79,10 +81,3 @@ default_tx_power = 0 # 默认值为 0，您可以根据需要调整
 
 # 是否启用 2M PHY，默认为 true。
 ble_use_2m_phy = true
-
-# [已弃用] 电池充电状态引脚，`low-active` 表示当 `charge_state.pin` 为低电平时电池正在充电。
-# 如果您需要充电显示，请取消注释并指定正确的引脚。例如：
-# charge_state = { pin = "P0_0X", low_active = true }
-
-# [已弃用] 低电量时闪烁的 LED 输出引脚。
-# charge_led = { pin = "P0_0Y", low_active = true }
