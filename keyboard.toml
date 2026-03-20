@@ -1,4 +1,4 @@
-# 修复后的 keyboard.toml（直连模式 + 双层切换）
+# 最终可编译版 keyboard.toml（直连模式 + 双层切换 + 兼容RMK v0.6.0）
 [keyboard]
 name = "whn Keyboard"                # 键盘名称
 product_name = "whn Keyboard"        # 键盘显示名称
@@ -9,12 +9,12 @@ serial_number = "vial:f64c2b3c:000001" # Vial序列号
 chip = "nrf52840"                    # 芯片型号
 usb_enable = true                    # 启用USB
 
-# 直连模式配置（核心：取消matrix，只保留direct_pins）
+# 直连模式核心配置（RMK v0.6.0 标准）
 [matrix]
 matrix_type = "direct_pin"           # 启用直连模式
 direct_pin_low_active = true         # 低电平触发（按键接GND）
 
-# 直连引脚列表：3行7列，空位置用 "_" 占位，每行末尾加逗号
+# 直连引脚列表：3行7列，空位置用 "_" 占位，每行末尾加逗号（TOML数组规范）
 direct_pins = [
     ["P0_29", "P0_02", "P1_15", "_", "_", "P0_22", "P0_24"],
     ["_", "P1_13", "_", "P1_06", "P1_04", "P0_11", "_"],
@@ -46,17 +46,29 @@ No   Up   No   Z    X    C      No
 Left Down Right T    Y    U      I
 """
 
-# BLE蓝牙配置（格式修正）
+# BLE蓝牙配置（RMK v0.6.0 官方支持的字段）
 [ble]
-enabled = true                       # 启用蓝牙
-ble_profiles_num = 3                 # 蓝牙配置文件数量
-ble_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7] # 蓝牙MAC地址
+enabled = true                       # 启用蓝牙（核心字段）
+battery_adc_pin = "vddh"             # 电池电量检测引脚（nRF52840必填）
+adc_divider_measured = 2000          # ADC分压器参数（默认值）
+adc_divider_total = 2806             # ADC分压器参数（默认值）
+default_tx_power = 0                 # 蓝牙发射功率（0dBm）
+ble_use_2m_phy = true                # 启用2M PHY（提升蓝牙速度）
 
 # Host配置（Vial启用，解锁键：行0列0 + 行0列1）
 [host]
-vial_enabled = true                  # 启用Vial
+vial_enabled = true                  # 启用Vial（RMK v0.6.0 标准）
 unlock_keys = [[0, 0], [0, 1]]       # 解锁组合键：F1+F3
 
-# 依赖/内部配置
+# RMK内部配置（必选基础项）
 [rmk]
-debounce_time = 20                   # 消抖时间（ms）
+debounce_time = 20                   # 按键消抖时间（20ms，默认值）
+event_channel_size = 16              # 事件通道大小（默认值）
+controller_channel_size = 16         # 控制器通道大小（默认值）
+report_channel_size = 16             # 报告通道大小（默认值）
+
+# 芯片专属配置（nRF52840）
+[chip.nrf52840]
+dcdc_reg0 = true                     # 启用DCDC调节器0
+dcdc_reg1 = true                     # 启用DCDC调节器1
+dcdc_reg0_voltage = "3V3"            # 调节器0电压（3.3V）
