@@ -1,35 +1,88 @@
-# Documentation: https://rmk.rs/docs/configuration.html
+# RMK keyboard.toml configuration file
+
+# Keyboard device configuration
 [keyboard]
-name = "RMK Keyboard"
-product_name = "RMK Keyboard"
-vendor_id = 0x4c4b
-product_id = 0x4643
-manufacturer = "RMK"
-chip = "rp2040"
+name = "whn_ff Keyboard"       # Display name for your keyboard
+vendor_id = 0xABCD                # USB vendor ID (Placeholder, you can change this)
+product_id = 0x1234               # USB product ID (Placeholder, you can change this)
+manufacturer = "whn54366"         # Manufacturer string
+board = "nice!nano_v2"          # Target development board (Based on your ZMK setup)
+serial_number = "vial:f64c2b3c"   # Enable Vial recognition
+usb_enable = true                 # Enable USB functionality (default is true)
 
+# Keyboard and Matrix configuration
 [matrix]
-# Row and col pins are mandatory
-row_pins = ["PIN_6", "PIN_7", "PIN_8", "PIN_9"]
-col_pins = ["PIN_19", "PIN_20", "PIN_21"]
+# Define matrix pins
+# For nRF52, the format is P0_XX or P1_XX
+row_pins = ["P1_07", "P1_02", "P1_01"]
+col_pins = ["P0_09", "P0_10", "P1_11", "P1_06", "P1_04", "P0_11", "P1_00"]
 
-# RMK uses col2row as the default matrix diode direction, if you want to use a row2col matrix, add `row2col = true`
-# row2col = true
+# RMK uses col2row as the default matrix diode direction.
+# If your schematic requires row2col, add `row2col = true`.
+# Based on your ZMK configuration and "diode cathode on rows", col2row is appropriate.
+# row2col = true # Uncomment if your matrix is row2col
 
+# Debouncer mode: "default" or "fast"
+# "default" uses a counter-based algorithm.
+# "fast" reacts instantly to a key press and waits briefly before the next input.
+# debouncer = "fast" # Uncomment to use fast debouncer
+
+# Layout configuration (example, you'll need to customize this)
 [layout]
-rows = 4
-cols = 3
-layers = 2
-keymap = [
-    [
-        ["A", "B", "C"],
-        ["Kc1", "Kc2", "Kc3"],
-        ["LCtrl", "MO(1)", "LShift"],
-        ["OSL(1)", "LT(2, Kc9)", "LM(1, LShift | LGui)"]
-    ],
-    [
-        ["_", "TT(1)", "TG(2)"],
-        ["_", "_", "_"],
-        ["_", "_", "_"],
-        ["_", "_", "_"]
-    ],
+# Define your default keymap.
+# Keycodes are typically defined as a 2D array matching your matrix dimensions.
+# Use standard HID keycodes or RMK's special keycodes.
+# This is a placeholder based on your 3x7 matrix.
+# You will need to fill in the actual keycodes.
+# Example: KC_A for 'A', KC_TRNS for transparent (pass to lower layer), etc.
+default_keymap = [
+    ["KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_Y", "KC_U"],
+    ["KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "KC_H", "KC_J"],
+    ["KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_N", "KC_M"]
 ]
+
+# Layers can be defined here, similar to ZMK
+# Example:
+# [[layers]]
+# name = "Layer 1"
+# bindings = [
+#     ["KC_ESC", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_6"],
+#     ["KC_TAB", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_Y"],
+#     ["KC_LSFT", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "KC_H"]
+# ]
+
+# You can also configure other sections like:
+# [split] for split keyboards
+# [storage] for on-board configuration
+# [behavior] for advanced key behaviors (Tap-Hold, TapDance, etc.)
+# [input_devices] for encoders, joysticks
+# [wireless] for Bluetooth settings
+# [lighting] for RGB lighting
+
+
+# For full details on all configuration options, refer to the RMK documentation:
+# https://rmk.rs/main/docs/configuration/
+
+# BLE (Bluetooth Low Energy) configuration
+[ble]
+enabled = true # 启用蓝牙功能
+
+# nRF52840 的电池电量读取引脚，"vddh" 表示直接测量微控制器电源引脚
+battery_adc_pin = "vddh"
+# ADC 分压器设置，nice!nano 通常使用 806kΩ 和 2MΩ 电阻。
+# saadc 测量的是 2MΩ 电阻上的电压，所以设置为 2000 和 2806 (假设 2M 为 2000k，总和为 2806k)
+adc_divider_measured = 2000
+adc_divider_total = 2806
+
+# 设置 BLE 发射功率；数值越大信号越好，但功耗越高。nRF52840 的最大发射功率是 8。
+default_tx_power = 0 # 默认值为 0，您可以根据需要调整
+
+# 是否启用 2M PHY，默认为 true。
+use_2m_phy = true
+
+# [已弃用] 电池充电状态引脚，`low-active` 表示当 `charge_state.pin` 为低电平时电池正在充电。
+# 如果您需要充电显示，请取消注释并指定正确的引脚。例如：
+# charge_state = { pin = "P0_0X", low_active = true }
+
+# [已弃用] 低电量时闪烁的 LED 输出引脚。
+# charge_led = { pin = "P0_0Y", low_active = true }
