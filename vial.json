@@ -1,7 +1,7 @@
 {
-  "name": "whn_ff",
-  "vendorId": "0x4C4B",
-  "productId": "0x4643",
+  "name": "whn_ff Keyboard",
+  "vendorId": "0xABCD",
+  "productId": "0x1234",
   "lighting": "none",
   "matrix": {
     "rows": 3,
@@ -9,101 +9,27 @@
   },
   "layouts": {
     "keymap": [
-      [
-        {
-          "a": 7,
-          "matrix": [0, 0]
-        },
-        {
-          "label": "F1",
-          "matrix": [0, 1]
-        },
-        {
-          "label": "F3",
-          "matrix": [0, 2]
-        },
-        {
-          "label": "F7",
-          "matrix": [0, 3]
-        }
-      ],
-      [
-        {
-          "r": 11,
-          "rx": 1.5,
-          "ry": 3.5,
-          "y": -1.5,
-          "x": -0.5,
-          "matrix": [1, 0]
-        },
-        {
-          "label": "W",
-          "matrix": [1, 1]
-        }
-      ],
-      [
-        {
-          "x": -1.5,
-          "matrix": [2, 0]
-        },
-        {
-          "label": "A",
-          "matrix": [2, 1]
-        },
-        {
-          "label": "S",
-          "matrix": [2, 2]
-        },
-        {
-          "label": "D",
-          "matrix": [2, 3]
-        }
-      ],
-      [
-        {
-          "r": -11,
-          "rx": 5.75,
-          "ry": 0.5,
-          "y": 2.5,
-          "x": -1.75,
-          "matrix": [0, 4]
-        },
-        {
-          "label": "H",
-          "matrix": [0, 5]
-        },
-        {
-          "label": "J",
-          "matrix": [0, 6]
-        },
-        {
-          "label": "K",
-          "matrix": [1, 2]
-        },
-        {
-          "label": "L",
-          "matrix": [1, 3]
-        }
-      ],
-      [
-        {
-          "ry": 2,
-          "x": -0.75,
-          "matrix": [1, 4]
-        },
-        {
-          "label": "U",
-          "matrix": [1, 5]
-        },
-        {
-          "label": "I",
-          "matrix": [1, 6]
-        },
-        {
-          "label": "O",
-          "matrix": [2, 4]
-        }
-      ]
+      {"matrix": [0, 0], "x": 0, "y": 0, "label": "F1"},
+      {"matrix": [0, 1], "x": 1, "y": 0, "label": "F3"},
+      {"matrix": [0, 2], "x": 2, "y": 0, "label": "F7"},
+      {"matrix": [0, 3], "x": 3, "y": 0, "label": ""},
+      {"matrix": [0, 4], "x": 4, "y": 0, "label": ""},
+      {"matrix": [0, 5], "x": 5, "y": 0, "label": ""},
+      {"matrix": [0, 6], "x": 6, "y": 0, "label": "MO(1)"},
+      {"matrix": [1, 0], "x": 0, "y": 1, "label": ""},
+      {"matrix": [1, 1], "x": 1, "y": 1, "label": "W"},
+      {"matrix": [1, 2], "x": 2, "y": 1, "label": ""},
+      {"matrix": [1, 3], "x": 3, "y": 1, "label": "I"},
+      {"matrix": [1, 4], "x": 4, "y": 1, "label": "O"},
+      {"matrix": [1, 5], "x": 5, "y": 1, "label": "P"},
+      {"matrix": [1, 6], "x": 6, "y": 1, "label": "MO(2)"},
+      {"matrix": [2, 0], "x": 0, "y": 2, "label": "A"},
+      {"matrix": [2, 1], "x": 1, "y": 2, "label": "S"},
+      {"matrix": [2, 2], "x": 2, "y": 2, "label": "D"},
+      {"matrix": [2, 3], "x": 3, "y": 2, "label": "H"},
+      {"matrix": [2, 4], "x": 4, "y": 2, "label": "J"},
+      {"matrix": [2, 5], "x": 5, "y": 2, "label": "K"},
+      {"matrix": [2, 6], "x": 6, "y": 2, "label": "L"}
     ]
   }
 }
