@@ -11,10 +11,9 @@ usb_enable = true
 [matrix]
 matrix_type = "direct_pin"
 direct_pin_low_active = true
-# 空位置写无效引脚（如""），但保留数组长度
 direct_pins = [
-    ["P0_29", "P0_02", "P1_15", "", "", "P0_22", "P0_24"],
-    ["", "P1_13", "", "P1_06", "P1_04", "P0_11", ""],
+    ["P0_29", "P0_02", "P1_15", "none", "none", "P0_22", "P0_24"],
+    ["none", "P1_13", "none", "P1_06", "P1_04", "P0_11", "none"],
     ["P0_09", "P0_10", "P1_11", "P1_07", "P1_02", "P1_01", "P1_00"]
 ]
 
@@ -22,22 +21,29 @@ direct_pins = [
 rows = 3
 cols = 7
 layers = 2
-# 核心：每个位置都是合法(行,列)坐标，无空占位符
 matrix_map = """
 (0,0) (0,1) (0,2) (0,3) (0,4) (0,5) (0,6)
 (1,0) (1,1) (1,2) (1,3) (1,4) (1,5) (1,6)
 (2,0) (2,1) (2,2) (2,3) (2,4) (2,5) (2,6)
 """
 
-# 层0：PLAYER1（空位置用No）
+# 层0：PLAYER1（多行写法，3行7列，直观匹配矩阵）
 [[layer]]
 name = "PLAYER1"
-keys = "F1 F3 F7 No No TG(1) TG(0) No W No I O P No A S D H J K L"
+keys = """
+F1   F3   F7   No   No   TG(1)  TG(0)
+No   W    No   I    O    P      No
+A    S    D    H    J    K      L
+"""
 
-# 层1：PLAYER2（空位置用No）
+# 层1：PLAYER2（多行写法，和层0行列一一对应）
 [[layer]]
 name = "PLAYER2"
-keys = "F2 F4 F7 No No TG(1) TG(0) No Up No Z X C No Left Down Right T Y U I"
+keys = """
+F2   F4   F7   No   No   TG(1)  TG(0)
+No   Up   No   Z    X    C      No
+Left Down Right T    Y    U      I
+"""
 
 [ble]
 enabled = true
